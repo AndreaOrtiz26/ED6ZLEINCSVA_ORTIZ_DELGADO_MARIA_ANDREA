@@ -25,7 +25,7 @@ using namespace std;
 
 struct dato{
 	int i;
-	dato *s;//nodo siguiente
+{	dato *s;//nodo siguiente
 }*a, *i, *p, *e;
 
 //metodos
@@ -188,3 +188,79 @@ y el apuntador siguiente (apuntador que aounta)
 3.- final solo se inserta y se ajusta el apuntador 
 
 */
+
+
+
+
+void insertar(int dat){
+	//saber si esta vacia
+	if(!i){
+		//es la primera vez que se va a meter un dato 
+		i = new (dato);
+		i->s = NULL 
+		i->i = dat;
+		return;
+	}
+	if(buscar(dat)){
+		//porque si existe el dato 
+		cout<<"\n El dato existe T_T";
+		getch();
+		return;
+	}
+	/*
+	Supongamos que tenemos lo siguiente
+	
+	nodo1 = -3, nodo2 = 0, nodo3 = 5
+	
+	insertar 3
+	*/
+	
+	e = new dato(dato);
+	
+	e->i = dat;
+	
+	if(p==i && p->s){
+		//primero hago la comparacion
+		if(p->i < e->i){
+			//final
+			p->s = e;
+			e->s = NULL;
+		}else{
+			e->s = p;
+			i=e;
+		}
+		return;
+	}
+	if(p->s){
+		a->s = e;
+		e->s = p;
+		return;
+	}
+	if(e->i > p->i){
+		e->s = NULL;
+		p-> = e;
+	}else{
+		a->s = e;
+		e->s = p;
+	}
+	
+	//borrar
+	
+	void borrar(void){
+		cout<<"\n Ingresa el dato que quieres borrar: ";
+		cin>>da;
+		if(buscar(da)){
+			if(a){
+				a->s = p->s;
+			}else{
+				i=p->s;
+			}
+			delete(p);
+			cout<<"\n Dato eliminado";
+		}else{
+			cout<<"\n Dato no encontrado T_T";
+			getch();
+		}
+	}
+	
+}
