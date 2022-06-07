@@ -258,10 +258,10 @@ void insertar(int dat){
 	void cargar(void){
 	 int c,x;
 	 FILE *arch;
-	 arch=fopen("DATOS.TXT","r");
+	 arch=fopen("DATO.TXT","r");
 	 if(!arch){
-	 cout<<"\nNO EXISTE ";
-	 getch();
+	 	cout<<"\nNO EXISTE ";
+	 	getch();
 	 return;
 	 }
 	 
