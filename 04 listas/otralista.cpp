@@ -95,7 +95,7 @@ void menu(void){
 				//de la lista
 				p = i;
 				while(p){
-				    a=p
+				    a=p;
 				    p = p->s;
 				    delete(a);
 				}
@@ -139,14 +139,14 @@ int buscar(int d);{
 	if(!i){
 		cout<<"No hay datos en la lista para mostrar";
 		getch();
-		return;
+		return(0);
 	}
 	//si hay
 	p=i;
 	a=NULL;
 	
 	while(p->s && p ->i <d){
-		//recorrer los valores de la lista
+	
 		a=p;
 		p=p->s;
 	}
@@ -197,8 +197,12 @@ void insertar(int dat){
 	e = new (dato);
 	
 	e->i=dat;
-	
 	if(p==i && p->s){
+		e->s=p;
+		i=e;
+		return;
+	}
+	if(p==i && !p->s){
 		//primero hago la comparacion
 		if(p->i < e->i){
 			//final
@@ -242,4 +246,49 @@ void borrar(void){
 		cout<<"\n Dato no encontrado T_T";
 		getch();
 	}
-}
+	void guardar(void)
+ {
+ FILE *arch;
+ arch=fopen("DATOS-A.TXT","w");
+ if(!i)
+ {
+ cout<<"\n\nNO HAY LISTA PARA GUARDAR";
+ getch();
+ return;
+ }
+ p=i;
+ while(p)
+ {
+ fprintf(arch,"%i\n",p->i);
+ p=p->s;
+ }
+ cout<<"\n\nArchivo Guardado";
+ fclose(arch);
+ getch();
+ }
+ 
+void cargar(void)
+ {
+ int c,x;
+ FILE *arch;
+ arch=fopen("DATOS-A.TXT","r");
+ if(!arch)
+ {
+ cout<<"\n\nNO EXISTE EL ARCHIVO";
+ getch();
+ return;
+ }
+ 
+do {
+ c=fscanf(arch,"%i\n",&x);
+ if(c!=EOF)
+ {
+ insertar(x);
+ }
+ }
+ while (c!=EOF);
+ cout<<"\n\nArchivo Cargado";
+ fclose(arch);
+ getch();
+ }
+
