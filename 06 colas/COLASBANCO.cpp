@@ -4,15 +4,17 @@ Ejemplo de cola con prioridades
 
 #include <iostream>
 #include <stdlib.h>
+#include <string.h>
 
 using namespace std;
 
 //vamos con la estructura nodo
 
 struct nodo{
-	char dato;
+	string dato;
 	int prioridad;
 	struct nodo * siguiente;
+	float A;
 };
 
 
@@ -24,7 +26,7 @@ struct cola{
 
 //funcion para crear un nodo nuevo
 
-struct nodo *crearNodo(char x, int pri){
+struct nodo *crearNodo(string x, int pri){
 	//vamos a crear ese nuevo nodo
 	struct nodo *nuevoNodo = new (struct nodo);
 	nuevoNodo->dato=x;
@@ -33,7 +35,7 @@ struct nodo *crearNodo(char x, int pri){
 }
 
 
-void encolar(struct cola &q, char valor, int priori){
+void encolar(struct cola &q, string valor, int priori){
 	//necesito mi auxiliar
 	struct nodo *aux = crearNodo(valor, priori);
 	aux->siguiente=NULL;
@@ -55,23 +57,21 @@ void mostrarCola(struct cola q){
 	
 	aux = q.delante;
 	
-	cout<<"\n Caracter de Prioridad\n";
+	cout<<"\n Fila de usuarios segun su prioridad\n";
 	
 	while(aux!=NULL){
 		//hay datos
-		cout<<" "<<aux->dato<<" | "<<aux->prioridad<<endl;
+		cout<<" "<<aux->dato<<" cuenta con el turno:  "<<aux->prioridad<<endl;
 		aux = aux->siguiente;
 	} 
 }
 
 
 void ordenarPrioridad(struct cola &q){
-	//criterio de 0 como prioridad
-	//el numero mayor es la mas alta
 	
 	struct nodo *aux1, *aux2;
 	int p_aux;
-	char c_aux;
+	string c_aux;
 	
 	aux1 = q.delante;
 	
@@ -94,21 +94,19 @@ void ordenarPrioridad(struct cola &q){
 	}
 }
 
-void insertar(struct cola &q, char c, int pri){
+void insertar(struct cola &q, string c, int pri){
 	
-	//encolar
 	encolar(q, c, pri);
 	
-	//ordeno
 	ordenarPrioridad(q);
-	//nuevo comentario
 }
 
 void menu(){
-	cout<<"\n Ejemplo de colas de prioridad\n";
-	cout<<"1.- Encolar\n";
-	cout<<"2.- Mostrar cola\n";
-	cout<<"3.- Salir\n";
+	cout<<"\n TARJETAHABIENTES\n";
+	cout<<"1.- NOMBRE DEL TARJETAHABIENTE y TIPO DE CUENTA\n";
+	cout<<"2.- ASIGNAR TURNO y VER TRAJETAHABIENTE\n";
+	cout<<"3.- DEPOSITO\n"; 
+	cout<<"4.- Salir\n";
 }
 
 int main(){
@@ -117,33 +115,48 @@ int main(){
 	q.delante = NULL;
 	q.atras = NULL;
 	
-	char c; //caracter del dato
+	string c; //caracter del dato
 	int priori; //prioridad
 	int op; //opcion
 	int x; //numero que devuelve para pop
+	float A;
 	
 	do{
 		menu();
 		cin>>op;
 		switch(op){
 			case 1:
-				cout<<"\n Ingrese un caracter: \n";
+				cout<<"\n Ingrese su nombre: \n";
 				cin>>c;
-				cout<<"\n Ingrese su prioridad: \n";
+				cout<<"\n Digite el numero correspondiente su tipo de cuenta: \n";
+				cout<<"\n 1) VIP \n 2) Empresarial \n 3) Normal \n 4) Sin cuenta \n";
 				cin>>priori;
 				
 				insertar(q, c, priori);
 				
-				cout<<"\n Caracter: "<<c<<" encolado\n";
+				cout<<"\n Usuario: "<<c<<" registrado\n";
 				break;
+				
 			case 2:
-				cout<<"\n Mostrar elementos de la cola: \n";
+				cout<<"\n Mostrar tarjetahabientes en fila: \n";
 				if(q.delante!=NULL){
 					mostrarCola(q);
 				}else{
-					cout<<"\n La cola esta vacia\n";
+					cout<<"\n La fila esta vacia\n";
 				}
 				break;
+			case 3:
+				cout<<"\n Ingrese el saldo a depositar: \n";
+				cin>>A;
+				if(A>5000){
+						cout<<"\nIngrese una cantidad menor ";
+					
+				}else{
+					cout<<"\n Se depositaron: "<<A<<" pesos\n";
+				}
+				
+				break;
+		
 			default:
 				cout<<"Ingrese una opcion valida\n";
 				system("pause");
@@ -151,6 +164,6 @@ int main(){
 		}
 		system("pause");
 		system("cls");
-	}while(op!=3);
+	}while(op!=6);
 	return 0;
 }
