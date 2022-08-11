@@ -1,0 +1,59 @@
+#include <iostream>
+
+using namespace std;
+
+
+void print(int[], int S);
+void shell(int[], int S);
+
+int main()
+{
+    int dats;
+    cout << "Digite cuantos datos desea agregar: " << endl;
+    cin >> dats;
+    int num[dats];
+    for (int i = 0; i < dats; i++)
+    {
+        cout << " Ingrese el dato ( " << (i + 1) << " ) :" << endl;
+        cin >> num[i];
+    }
+    shell(num, dats);
+}
+
+void shell(int B[], int S)
+{
+
+    int ints, i, aux;
+    bool band;
+    ints = S;
+    while (ints > 1)
+    {
+        ints = (ints / 2);
+        band = true;
+        while (band == true)
+        {
+            band = false;
+            i = 0;
+            while ((i + ints) <= S)
+            {
+                if (B[i] > B[i + ints])
+                {
+                    aux = B[i];
+                    B[i] = B[i + ints];
+                    B[i + ints] = aux;
+                    band = true;
+                }
+                i++;
+                print(B, S);
+            }
+        }
+    }
+}
+
+void print(int B[], int S)
+{
+    cout << "\n Datos ordenados: " << endl;
+
+    for (int i = 0; i < S; i++)
+        cout << "( " << B[i] << " )"<< endl;
+}
